@@ -3,3 +3,5 @@
 require_relative '../environment'
 
 puts "Testing"
+
+CLI.new.start
