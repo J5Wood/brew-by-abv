@@ -8,6 +8,8 @@ class CLI
         puts ""
         puts "You can find beers to brew based on the ABV% you're looking for."
         puts ""
+        #select beers based on abv, 4-6.9%,7-9.9%,10%+
+        API.beers_by_abv
     end
 
 end
