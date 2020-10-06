@@ -2,23 +2,21 @@ require_relative '../environment'
 
 class API
 
-    attr_accessor :low_abv, :mid_abv, :high_abv
+    @@low_abv = []
+    @@mid_abv = []
+    @@high_abv = []
 
     def self.beers_by_abv
         beers = self.get_beers
-        @low_abv = []
-        @mid_abv = []
-        @high_abv = []
         beers.each do |beer|
             if beer["abv"].between?(4,6.9)
-                @low_abv << beer
+                @@low_abv << beer
             elsif beer["abv"].between?(7,9.9)
-                @mid_abv << beer
+                @@mid_abv << beer
             else
-                @high_abv << beer
+                @@high_abv << beer
             end
         end
-        binding.pry
     end
 
     def self.get_beers
@@ -27,4 +25,15 @@ class API
         beers = JSON.parse(response)
     end
 
+    def self.low_abv
+        @@low_abv
+    end
+
+    def self.mid_abv
+        @@mid_abv
+    end
+
+    def self.high_abv
+        @@high_abv
+    end
 end
