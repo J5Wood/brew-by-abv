@@ -13,27 +13,31 @@ class CLI
         puts "3. 10% and up ABV"
         puts ""
         puts "Enter number next to desired ABV%, or type 'exit'"
-        abv_selection = gets.strip.downcase
-        API.beers_by_abv
-        if abv_selection.to_i == 1
-            API.low_abv.each_with_index do |x, ind|
-                puts ""
-                puts "#{ind + 1}. #{x["name"]}"
+        abv_selection = nil
+        BeerList.beers_by_abv
+        while abv_selection != "exit"
+            abv_selection = gets.strip.downcase
+            puts ""
+            puts "Name, ABV%, Style" 
+            puts ""
+            if abv_selection.to_i == 1
+                BeerList.low_abv.each_with_index do |x, ind|
+                    puts ""
+                    puts "#{ind + 1}. #{x["name"]}, #{x["abv"]}%, #{x["tagline"]}"
+                end
+            elsif abv_selection.to_i == 2
+                BeerList.mid_abv.each_with_index do |x, ind|
+                    puts ""
+                    puts "#{ind + 1}. #{x["name"]}, #{x["abv"]}%, #{x["tagline"]}"
+                end
+            elsif abv_selection.to_i == 3
+                BeerList.high_abv.each_with_index do |x, ind|
+                    puts ""
+                    puts "#{ind + 1}. #{x["name"]}, #{x["abv"]}%, #{x["tagline"]}"
+                end
             end
-        elsif abv_selection.to_i == 2
-            API.mid_abv.each_with_index do |x, ind|
-                puts ""
-                puts "#{ind + 1}. #{x["name"]}"
-            end
-        elsif abv_selection.to_i == 3
-            API.high_abv.each_with_index do |x, ind|
-                puts ""
-                puts "#{ind + 1}. #{x["name"]}"
-            end
-        elsif abv_selection == "exit"
-            
         end
-        binding.pry
+        # binding.pry
     end
 
 
