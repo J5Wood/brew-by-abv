@@ -32,6 +32,10 @@ class CLI
                 puts "To see more details about a beer, enter the corresponding number."
                 puts "Hit any key to go back to menu."
                 beer_selection = gets.strip.downcase                #get beer desriptions
+                selected_beer = Beer.low_abv[beer_selection.to_i - 1]
+                puts "#{selected_beer.name}:"
+                puts "#{selected_beer.description}"
+                binding.pry
 
 
             elsif abv_selection.to_i == 2                           #mid abv list
@@ -43,7 +47,9 @@ class CLI
                 puts "To see more details about a beer, enter the corresponding number."
                 puts "Hit any key to go back to menu."
                 beer_selection = gets.strip.downcase
-
+                selected_beer = Beer.low_abv[beer_selection.to_i - 1]
+                puts "#{selected_beer.name}:"
+                puts "#{selected_beer.description}"
 
             elsif abv_selection.to_i == 3                           #high abv list
                 Beer.high_abv.each_with_index do |x, ind|       
@@ -54,7 +60,9 @@ class CLI
                 puts "To see more details about a beer, enter the corresponding number."
                 puts "Hit any key to go back to menu."
                 beer_selection = gets.strip.downcase
-
+                selected_beer = Beer.low_abv[beer_selection.to_i - 1]
+                puts "#{selected_beer.name}:"
+                puts "#{selected_beer.description}"
 
             end
         end

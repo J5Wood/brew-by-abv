@@ -2,7 +2,7 @@ require_relative '../environment'
 
 class Beer
 
-    attr_accessor :name, :abv, :tagline, :recipe
+    attr_accessor :name, :abv, :tagline, :recipe, :description
 
     @@low_abv = []
     @@mid_abv = []
@@ -20,11 +20,12 @@ class Beer
         @@high_abv
     end
 
-    def initialize(name, abv, tagline, recipe = nil)
+    def initialize(name, abv, tagline, description, recipe = nil)
         self.name = name
         self.abv = abv
         self.tagline = tagline
         self.recipe = recipe
+        self.description = description
         if self.abv < 6.9
             @@low_abv << self
         elsif self.abv > 10
@@ -37,7 +38,7 @@ class Beer
     def self.create_beers        
         beers = API.get_beers
         beers.each do |beer|
-            beer = Beer.new(beer["name"],beer["abv"],beer["tagline"])
+            beer = Beer.new(beer["name"], beer["abv"], beer["tagline"], beer["description"])
             # beer.recipe = Recipe.new(ingredients)
         end
     end
