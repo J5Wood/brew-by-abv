@@ -42,10 +42,9 @@ class CLI
                 puts "Type 'yes' or 'no'"
                 recipe_selection = gets.strip.downcase          #recipe selection
                 if recipe_selection == "yes"
-                    puts "test"
-                                         #add beer recipe
-                    recipe = selected_beer.recipe
-                    binding.pry
+                    recipe = selected_beer.recipe    #add beer recipe
+                    puts "#{recipe.list_recipe}"
+                    # binding.pry
                 elsif recipe_selection == "no"
                     puts "testing"
                 end
