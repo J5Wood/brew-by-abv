@@ -32,21 +32,24 @@ class CLI
                 puts "Hit any key to go back to main menu."
                 puts ""
                 
-                beer_selection = gets.strip.downcase                #get beer desriptions
+                beer_selection = gets.strip.downcase              #get beer desriptions
+                
                 selected_beer = Beer.low_abv[beer_selection.to_i - 1]
                 puts ""
                 puts "#{selected_beer.name}:"
+                puts ""
                 puts "#{selected_beer.description}"
                 puts ""
                 puts "Would you like to see recipe for this beer?"
                 puts "Type 'yes' or 'no'"
-                recipe_selection = gets.strip.downcase          #recipe selection
-                if recipe_selection == "yes"
-                    recipe = selected_beer.recipe    #add beer recipe
-                    puts "#{recipe.list_recipe}"
-                    # binding.pry
+                
+                recipe_selection = gets.strip.downcase          #get recipe description
+                if recipe_selection == "yes"   
+                    puts "#{selected_beer.recipe.list_recipe}"
                 elsif recipe_selection == "no"
                     puts "testing"
+                else
+                    puts "incorrect selection"
                 end
 
              
