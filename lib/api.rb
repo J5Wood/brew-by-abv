@@ -9,5 +9,5 @@ class API
         beers = JSON.parse(response)
     end
 
-
+    
 end

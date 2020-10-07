@@ -20,11 +20,10 @@ class Beer
         @@high_abv
     end
 
-    def initialize(name, abv, tagline, description, recipe = nil)
+    def initialize(name, abv, tagline, description )
         self.name = name
         self.abv = abv
         self.tagline = tagline
-        self.recipe = recipe
         self.description = description
         if self.abv < 6.9
             @@low_abv << self
@@ -38,39 +37,11 @@ class Beer
     def self.create_beers        
         beers = API.get_beers
         beers.each do |beer|
-            beer = Beer.new(beer["name"], beer["abv"], beer["tagline"], beer["description"])
-            # beer.recipe = Recipe.new(ingredients)
-        end
+            new_beer = Beer.new(beer["name"], beer["abv"], beer["tagline"], beer["description"])
+            new_beer.recipe = Recipe.create_recipe(beer["ingredients"], beer["method"], beer["boil_volume"], beer["volume"], beer["brewers_tips"])
+         end
     end
 
-
-
-            # if beer["abv"].between?(4,6.9)
-            #     binding.pry
-            #     self.new
-            #     beer.abv_list = "low"
-            #     @@all << beer
-            # elsif beer["abv"].between?(7,9.9)
-                
-            #     beer.abv_list = "mid"
-            #     @@all << beer
-            # else
-            #     beer.abv_list = "high"
-            #     @@all << beer
-            # end
-    #     end
-    # end
-
-    # def self.low_abv
-    #     @@low_abv
-    # end
-
-    # def self.mid_abv
-    #     @@mid_abv
-    # end
-
-    # def self.high_abv
-    #     @@high_abv
-    # end
+    
 
 end
