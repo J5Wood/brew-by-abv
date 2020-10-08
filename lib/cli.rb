@@ -3,88 +3,181 @@ require_relative '../environment'
 class CLI
 
     def start
+        Beer.create_beers              #create beer objects
         puts ""
-        puts "Welcome to find by ABV!"
+        puts "-----Welcome to Brew By ABV!-----"
         puts ""
         puts "You can find beers to brew based on the ABV% you're looking for."
-        puts ""
-        puts "1. 4% - 6.9% ABV"
-        puts "2. 7% - 9.9% ABV"
-        puts "3. 10% and up ABV"
-        puts ""
         abv_selection = nil
-        Beer.create_beers              #create beer objects, can this be done elsewhere?
-
         while abv_selection != "exit"       #full exit loop
-            puts "Enter number next to desired ABV%, or to quit type 'exit'"
-            abv_selection = gets.strip.downcase
             puts ""
-            puts "Name, ABV%, Style" 
+            puts "1. 4% - 6.9% ABV"
             puts ""
+            puts "2. 7% - 9.9% ABV"
+            puts ""
+            puts "3. 10% and up ABV"
+            puts ""
+            puts "Enter number next to desired ABV%, or to quit type 'exit'" 
+            puts ""
+            abv_selection = gets.strip.downcase         #enter abv% selection
             
-            if abv_selection.to_i == 1                     #abv list selection
-                Beer.low_abv.each_with_index do |x, ind|        #low abv list
+            if abv_selection.to_i == 1                  #low abv list selection
+                beer_selection = nil
+                while beer_selection != "back"
                     puts ""
-                    puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
-                end
-                puts ""
-                puts "To see more details about a beer, enter the corresponding number."
-                puts "Hit any key to go back to main menu."
-                puts ""
-                
-                beer_selection = gets.strip.downcase              #get beer desriptions
-                
-                selected_beer = Beer.low_abv[beer_selection.to_i - 1]
-                puts ""
-                puts "#{selected_beer.name}:"
-                puts ""
-                puts "#{selected_beer.description}"
-                puts ""
-                puts "Would you like to see recipe for this beer?"
-                puts "Type 'yes' or 'no'"
-                
-                recipe_selection = gets.strip.downcase          #get recipe description
-                if recipe_selection == "yes"   
-                    puts "#{selected_beer.recipe.list_recipe}"
-                elsif recipe_selection == "no"
-                    puts "testing"
-                else
-                    puts "incorrect selection"
-                end
+                    puts "Name, ABV%, Style" 
+                    puts ""
+                    Beer.low_abv.each_with_index do |x, ind|        #print low abv beer list
+                        puts ""
+                        puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+                    end
+                    puts ""
+                    puts "To see more details about a beer, enter the corresponding number."
+                    puts "Type 'back' to return to the main menu."
+                    puts ""
+                    beer_selection = gets.strip.downcase                            #select which beer to view description of
 
+                    if (1..Beer.low_abv.length).include?(beer_selection.to_i)       #check if beer selection is valid number
+                        recipe_selection = nil
+                        while recipe_selection != "back"
+                            selected_beer = Beer.low_abv[beer_selection.to_i - 1]   #print selected beer details
+                            puts ""
+                            puts "#{selected_beer.name}:"
+                            puts ""
+                            puts "#{selected_beer.description}"
+                            puts ""
+                            puts "Would you like to see recipe for this beer?"
+                            puts "Type 'yes' to view recipe, or 'back' to go back."
+                            puts ""
+                            
+                            recipe_selection = gets.strip.downcase          #get recipe description
+                            if recipe_selection == "yes"
+                                puts "#{selected_beer.recipe.list_recipe}"
+                                puts ""
+                                while recipe_selection != "back"
+                                    puts ""
+                                    puts "type back to return to beer selection"
+                                    puts ""
+                                    recipe_selection = gets.strip.downcase
+                                end
+                            else
+                                puts ""
+                                puts "Invalid selection"
+                            end
+                        end
+                    elsif beer_selection == "back"
+                        break
+                    else
+                        puts "Invalid selection"
+                    end
+                end
              
 
 
             elsif abv_selection.to_i == 2                           #mid abv list
-                Beer.mid_abv.each_with_index do |x, ind|      
+                beer_selection = nil
+                while beer_selection != "back"
                     puts ""
-                    puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+                    puts "Name, ABV%, Style" 
+                    puts ""
+                    Beer.mid_abv.each_with_index do |x, ind|        #print mid abv beer list
+                        puts ""
+                        puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+                    end
+                    puts ""
+                    puts "To see more details about a beer, enter the corresponding number."
+                    puts "Type 'back' to return to the main menu."
+                    puts ""
+                    beer_selection = gets.strip.downcase                            #select which beer to view description of
+
+                    if (1..Beer.mid_abv.length).include?(beer_selection.to_i)       #check if beer selection is valid number
+                        recipe_selection = nil
+                        while recipe_selection != "back"
+                            selected_beer = Beer.mid_abv[beer_selection.to_i - 1]   #print selected beer details
+                            puts ""
+                            puts "#{selected_beer.name}:"
+                            puts ""
+                            puts "#{selected_beer.description}"
+                            puts ""
+                            puts "Would you like to see recipe for this beer?"
+                            puts "Type 'yes' to view recipe, or 'back' to go back."
+                            puts ""
+                            
+                            recipe_selection = gets.strip.downcase          #get recipe description
+                            if recipe_selection == "yes"
+                                puts "#{selected_beer.recipe.list_recipe}"
+                                puts ""
+                                while recipe_selection != "back"
+                                    puts ""
+                                    puts "type back to return to beer selection"
+                                    puts ""
+                                    recipe_selection = gets.strip.downcase
+                                end
+                            else
+                                puts ""
+                                puts "Invalid selection"
+                            end
+                        end
+                    elsif beer_selection == "back"
+                        break
+                    else
+                        puts "Invalid selection"
+                    end
                 end
-                puts ""
-                puts "To see more details about a beer, enter the corresponding number."
-                puts "Hit any key to go back to menu."
-                beer_selection = gets.strip.downcase
-                selected_beer = Beer.low_abv[beer_selection.to_i - 1]
-                puts "#{selected_beer.name}:"
-                puts "#{selected_beer.description}"
 
             elsif abv_selection.to_i == 3                           #high abv list
-                Beer.high_abv.each_with_index do |x, ind|       
+                beer_selection = nil
+                while beer_selection != "back"
                     puts ""
-                    puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
-                end
-                puts ""
-                puts "To see more details about a beer, enter the corresponding number."
-                puts "Hit any key to go back to menu."
-                beer_selection = gets.strip.downcase
-                selected_beer = Beer.low_abv[beer_selection.to_i - 1]
-                puts "#{selected_beer.name}:"
-                puts "#{selected_beer.description}"
+                    puts "Name, ABV%, Style" 
+                    puts ""
+                    Beer.high_abv.each_with_index do |x, ind|        #print high abv beer list
+                        puts ""
+                        puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+                    end
+                    puts ""
+                    puts "To see more details about a beer, enter the corresponding number."
+                    puts "Type 'back' to return to the main menu."
+                    puts ""
+                    beer_selection = gets.strip.downcase                            #select which beer to view description of
 
+                    if (1..Beer.high_abv.length).include?(beer_selection.to_i)       #check if beer selection is valid number
+                        recipe_selection = nil
+                        while recipe_selection != "back"
+                            selected_beer = Beer.high_abv[beer_selection.to_i - 1]   #print selected beer details
+                            puts ""
+                            puts "#{selected_beer.name}:"
+                            puts ""
+                            puts "#{selected_beer.description}"
+                            puts ""
+                            puts "Would you like to see recipe for this beer?"
+                            puts "Type 'yes' to view recipe, or 'back' to go back."
+                            puts ""
+                            
+                            recipe_selection = gets.strip.downcase          #get recipe description
+                            if recipe_selection == "yes"
+                                puts "#{selected_beer.recipe.list_recipe}"
+                                puts ""
+                                while recipe_selection != "back"
+                                    puts ""
+                                    puts "type back to return to beer selection"
+                                    puts ""
+                                    recipe_selection = gets.strip.downcase
+                                end
+                            else
+                                puts ""
+                                puts "Invalid selection"
+                            end
+                        end
+                    elsif beer_selection == "back"
+                        break
+                    else
+                        puts "Invalid selection"
+                    end
+                end
             end
         end
-        # binding.pry
-    end
 
+    end
 
 end

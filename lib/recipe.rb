@@ -19,6 +19,7 @@ class Recipe
 
     def list_recipe
         puts ""
+        puts "----------Recipe----------"
         puts ""
         puts "Initial boil volume is #{self.boil_volume["value"]} #{self.boil_volume["unit"]}, and will reduce to #{self.volume["value"]} #{self.volume["unit"]}."
         puts ""
@@ -55,7 +56,6 @@ class Recipe
         puts "Brewers tip:"
         puts ""
         puts "  #{self.brewers_tips}"
-        puts ""
         puts ""
     end
 end
