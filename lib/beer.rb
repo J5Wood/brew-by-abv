@@ -33,9 +33,9 @@ class Beer
         if self.abv < 6.9
             self.abv_list = 1
         elsif self.abv > 10
-            self.abv_list = 2
-        else
             self.abv_list = 3
+        else
+            self.abv_list = 2
         end
         @@all << self
         # if self.abv < 6.9
@@ -50,14 +50,24 @@ class Beer
     def self.create_beers        
         beers = API.get_beers
         beers.each do |beer|
-            new_beer = Beer.new(beer["name"], beer["abv"], beer["tagline"], beer["description"])
+            new_beer = self.new(beer["name"], beer["abv"], beer["tagline"], beer["description"])
             new_beer.recipe = Recipe.create_recipe(beer["ingredients"], beer["method"], beer["boil_volume"], beer["volume"], beer["brewers_tips"])
          end
     end
 
     def self.list_beers(abv_selection)
+        beer_array = []
+        self.all.each do |beer|
+            if beer.abv_list == abv_selection.to_i
+                beer_array << beer
+            end
+        end
+        beer_array
+    end
+
+    def self.print_beers(abv_selection)
         counter = 1
-        Beer.all.each do |x|
+        self.all.each do |x|
             if x.abv_list == abv_selection.to_i
                 puts""
                 puts "#{counter}. #{x.name}, #{x.abv}%, #{x.tagline}" 
@@ -66,6 +76,21 @@ class Beer
         end
     end
 
+    def self.select_beer(beer_selection)
+        binding.pry
+
+    end
+
+    def self.count_beers(abv_selection)
+        counter = 0
+        Beer.all.each do |x|
+            if x.abv_list == abv_selection.to_i
+                counter += 1
+            end
+        end
+        counter
+    end
+    
     def self.list_low_abv
         self.low_abv.each_with_index do |x, ind|        #print low abv beer list
             puts ""
