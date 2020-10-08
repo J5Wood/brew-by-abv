@@ -5,21 +5,6 @@ class Beer
     attr_accessor :name, :abv, :abv_list, :tagline, :recipe, :description
 
     @@all = []
-    @@low_abv = []
-    @@mid_abv = []
-    @@high_abv = []
-
-    def self.low_abv
-        @@low_abv
-    end
-
-    def self.mid_abv
-        @@mid_abv
-    end
-
-    def self.high_abv
-        @@high_abv
-    end
 
     def self.all
         @@all
@@ -38,13 +23,6 @@ class Beer
             self.abv_list = 2
         end
         @@all << self
-        # if self.abv < 6.9
-        #     @@low_abv << self
-        # elsif self.abv > 10
-        #     @@high_abv << self
-        # else
-        #     @@mid_abv << self
-        # end
     end
 
     def self.create_beers        
@@ -76,11 +54,6 @@ class Beer
         end
     end
 
-    def self.select_beer(beer_selection)
-        binding.pry
-
-    end
-
     def self.count_beers(abv_selection)
         counter = 0
         Beer.all.each do |x|
@@ -91,25 +64,4 @@ class Beer
         counter
     end
     
-    def self.list_low_abv
-        self.low_abv.each_with_index do |x, ind|        #print low abv beer list
-            puts ""
-            puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
-        end
-    end
-
-    def self.list_mid_abv
-        self.mid_abv.each_with_index do |x, ind|        #print mid abv beer list
-            puts ""
-            puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
-        end
-    end
-    
-    def self.list_high_abv
-        self.high_abv.each_with_index do |x, ind|        #print high abv beer list
-            puts ""
-            puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
-        end
-    end
-
 end
