@@ -2,8 +2,9 @@ require_relative '../environment'
 
 class Beer
 
-    attr_accessor :name, :abv, :tagline, :recipe, :description
+    attr_accessor :name, :abv, :abv_list, :tagline, :recipe, :description
 
+    @@all = []
     @@low_abv = []
     @@mid_abv = []
     @@high_abv = []
@@ -20,18 +21,30 @@ class Beer
         @@high_abv
     end
 
+    def self.all
+        @@all
+    end
+
     def initialize(name, abv, tagline, description )
         self.name = name
         self.abv = abv
         self.tagline = tagline
         self.description = description
         if self.abv < 6.9
-            @@low_abv << self
+            self.abv_list = 1
         elsif self.abv > 10
-            @@high_abv << self
+            self.abv_list = 2
         else
-            @@mid_abv << self
+            self.abv_list = 3
         end
+        @@all << self
+        # if self.abv < 6.9
+        #     @@low_abv << self
+        # elsif self.abv > 10
+        #     @@high_abv << self
+        # else
+        #     @@mid_abv << self
+        # end
     end
 
     def self.create_beers        
@@ -42,6 +55,36 @@ class Beer
          end
     end
 
+    def self.list_beers(abv_selection)
+        counter = 1
+        Beer.all.each do |x|
+            if x.abv_list == abv_selection.to_i
+                puts""
+                puts "#{counter}. #{x.name}, #{x.abv}%, #{x.tagline}" 
+                counter += 1
+            end
+        end
+    end
+
+    def self.list_low_abv
+        self.low_abv.each_with_index do |x, ind|        #print low abv beer list
+            puts ""
+            puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+        end
+    end
+
+    def self.list_mid_abv
+        self.mid_abv.each_with_index do |x, ind|        #print mid abv beer list
+            puts ""
+            puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+        end
+    end
     
+    def self.list_high_abv
+        self.high_abv.each_with_index do |x, ind|        #print high abv beer list
+            puts ""
+            puts "#{ind + 1}. #{x.name}, #{x.abv}%, #{x.tagline}"
+        end
+    end
 
 end
