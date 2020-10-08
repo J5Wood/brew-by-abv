@@ -4,7 +4,7 @@ Brew-by-abv is a CLI program to find a beer recipe based on it's abv%
 
 ## Installation
 You should have Ruby installed on your computer, and you should be using a terminal that allows you to run Unix command.
-
+Clone repoistory from : https://github.com/J5Wood/brew-by-abv.git
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
