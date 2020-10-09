@@ -56,6 +56,5 @@ class Recipe
         puts "Brewers tip:"
         puts ""
         puts "  #{self.brewers_tips}"
-        puts ""
     end
 end

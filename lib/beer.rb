@@ -45,23 +45,17 @@ class Beer
 
     def self.print_beers(abv_selection)
         counter = 1
-        self.all.each do |x|
-            if x.abv_list == abv_selection.to_i
+        self.all.each do |beer|
+            if beer.abv_list == abv_selection.to_i
                 puts""
-                puts "#{counter}. #{x.name}, #{x.abv}%, #{x.tagline}" 
+                puts "  #{counter}. #{beer.name}, #{beer.abv}%, #{beer.tagline}" 
                 counter += 1
             end
         end
     end
 
     def self.count_beers(abv_selection)
-        counter = 0
-        Beer.all.each do |x|
-            if x.abv_list == abv_selection.to_i
-                counter += 1
-            end
-        end
-        counter
+        self.list_beers(abv_selection).length
     end
-    
+
 end
