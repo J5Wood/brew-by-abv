@@ -1,9 +1,8 @@
-require_relative '../environment'
-
 class Recipe
   
-    attr_accessor :ingredients, :method, :boil_volume, :volume, :brewers_tips
+    attr_reader :ingredients, :method, :boil_volume, :volume, :brewers_tips
     
+    @@all = []
 
     def initialize(ingredients, method, boil_volume, volume, brewers_tips)
         @ingredients = ingredients
@@ -11,10 +10,11 @@ class Recipe
         @boil_volume = boil_volume
         @volume = volume
         @brewers_tips = brewers_tips
+        @@all << self
     end
 
-    def self.create_recipe(ingredients, method, boil_volume, volume, brewers_tips)
-        Recipe.new(ingredients, method, boil_volume, volume, brewers_tips)
+    def self.all
+        @@all
     end
 
     def list_recipe

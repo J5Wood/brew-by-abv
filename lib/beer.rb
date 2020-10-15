@@ -1,8 +1,6 @@
-require_relative '../environment'
-
 class Beer
-
-    attr_accessor :name, :abv, :abv_list, :tagline, :recipe, :description
+    attr_accessor :recipe
+    attr_reader :name, :abv, :abv_list, :tagline, :description
 
     @@all = []
 
@@ -10,17 +8,17 @@ class Beer
         @@all
     end
 
-    def initialize(name, abv, tagline, description )
-        self.name = name
-        self.abv = abv
-        self.tagline = tagline
-        self.description = description
-        if self.abv < 6.9
-            self.abv_list = 1
-        elsif self.abv > 10
-            self.abv_list = 3
+    def initialize(name, abv, tagline, description)
+        @name = name
+        @abv = abv
+        @tagline = tagline
+        @description = description
+        if @abv < 6.9
+            @abv_list = 1
+        elsif @abv > 10
+            @abv_list = 3
         else
-            self.abv_list = 2
+            @abv_list = 2
         end
         @@all << self
     end
@@ -29,7 +27,7 @@ class Beer
         beers = API.get_beers
         beers.each do |beer|
             new_beer = self.new(beer["name"], beer["abv"], beer["tagline"], beer["description"])
-            new_beer.recipe = Recipe.create_recipe(beer["ingredients"], beer["method"], beer["boil_volume"], beer["volume"], beer["brewers_tips"])
+            new_beer.recipe = Recipe.new(beer["ingredients"], beer["method"], beer["boil_volume"], beer["volume"], beer["brewers_tips"])
          end
     end
 

@@ -1,5 +1,3 @@
-require_relative '../environment'
-
 class CLI
 
     def prompt
@@ -8,6 +6,7 @@ class CLI
 
     def start
         Beer.create_beers              #create beer objects
+        binding.pry
         puts ""
         puts "-----Welcome to Brew By ABV!-----"
         puts ""
