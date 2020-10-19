@@ -6,7 +6,6 @@ class CLI
 
     def start
         Beer.create_beers              #create beer objects
-        binding.pry
         puts ""
         puts "-----Welcome to Brew By ABV!-----"
         puts ""
@@ -50,9 +49,9 @@ class CLI
                             puts "Type 'yes' to view recipe, or 'back' to go back."
                             puts ""
 
-                            recipe_selection = self.prompt          #get recipe description
+                            recipe_selection = self.prompt          #get recipe selection
                             if recipe_selection == "yes"
-                                puts "#{selected_beer.recipe.list_recipe}"
+                                puts "#{self.list_recipe(selected_beer.recipe)}" # print recipe
                                 puts ""
                                 while recipe_selection != "back"
                                     puts ""
@@ -83,4 +82,44 @@ class CLI
         puts ""
     end
 
+    def list_recipe(recipe)
+        puts ""
+        puts "----------Recipe----------"
+        puts ""
+        puts "Initial boil volume is #{recipe.boil_volume["value"]} #{recipe.boil_volume["unit"]}, and will reduce to #{recipe.volume["value"]} #{recipe.volume["unit"]}."
+        puts ""
+        puts ""
+        puts "Mash temperature:"
+        puts ""
+        puts "  #{recipe.method["mash_temp"][0]["temp"]["value"]}° #{recipe.method["mash_temp"][0]["temp"]["unit"]}"
+        puts ""
+        puts "Fermentation tempertature:"
+        puts ""
+        puts "  #{recipe.method["fermentation"]["temp"]["value"]}° #{recipe.method["fermentation"]["temp"]["unit"]}"
+        puts ""
+        puts ""
+        puts "Malts:"
+        puts ""
+        recipe.ingredients["malt"].each do |malt|
+            puts "  #{malt["name"]} - #{malt["amount"]["value"]} #{malt["amount"]["unit"]}"
+            puts ""
+        end
+        puts ""
+        puts "Hops:"
+        puts ""
+        recipe.ingredients["hops"].each do |hop|
+            puts "  #{hop["name"]} - #{hop["amount"]["value"]} #{hop["amount"]["unit"]}."
+            puts "    When to add: #{hop["add"]}"
+            puts ""
+        end
+        puts ""
+        puts "Yeast:"
+        puts ""
+        puts "  #{recipe.ingredients["yeast"]}"
+        puts ""
+        puts ""
+        puts "Brewers tip:"
+        puts ""
+        puts "  #{recipe.brewers_tips}"
+    end
 end
